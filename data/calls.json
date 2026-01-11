@@ -1,0 +1,452 @@
+[
+  {
+    "call_id": "call_0",
+    "client_id": "bank_01",
+    "start_time": "2026-01-10T14:00:00",
+    "duration_sec": 60,
+    "status": "dropped",
+    "resolution": "promise_to_pay",
+    "llm_latency_ms": 280
+  },
+  {
+    "call_id": "call_1",
+    "client_id": "bank_01",
+    "start_time": "2026-01-10T14:01:00",
+    "duration_sec": 63,
+    "status": "completed",
+    "resolution": "none",
+    "llm_latency_ms": 295
+  },
+  {
+    "call_id": "call_2",
+    "client_id": "bank_01",
+    "start_time": "2026-01-10T14:02:00",
+    "duration_sec": 66,
+    "status": "completed",
+    "resolution": "none",
+    "llm_latency_ms": 310
+  },
+  {
+    "call_id": "call_3",
+    "client_id": "bank_01",
+    "start_time": "2026-01-10T14:03:00",
+    "duration_sec": 69,
+    "status": "completed",
+    "resolution": "none",
+    "llm_latency_ms": 325
+  },
+  {
+    "call_id": "call_4",
+    "client_id": "bank_01",
+    "start_time": "2026-01-10T14:04:00",
+    "duration_sec": 72,
+    "status": "completed",
+    "resolution": "promise_to_pay",
+    "llm_latency_ms": 340
+  },
+  {
+    "call_id": "call_5",
+    "client_id": "bank_01",
+    "start_time": "2026-01-10T14:05:00",
+    "duration_sec": 75,
+    "status": "dropped",
+    "resolution": "none",
+    "llm_latency_ms": 355
+  },
+  {
+    "call_id": "call_6",
+    "client_id": "bank_01",
+    "start_time": "2026-01-10T14:06:00",
+    "duration_sec": 78,
+    "status": "completed",
+    "resolution": "none",
+    "llm_latency_ms": 370
+  },
+  {
+    "call_id": "call_7",
+    "client_id": "bank_01",
+    "start_time": "2026-01-10T14:07:00",
+    "duration_sec": 81,
+    "status": "completed",
+    "resolution": "paid",
+    "llm_latency_ms": 385
+  },
+  {
+    "call_id": "call_8",
+    "client_id": "bank_01",
+    "start_time": "2026-01-10T14:08:00",
+    "duration_sec": 84,
+    "status": "completed",
+    "resolution": "promise_to_pay",
+    "llm_latency_ms": 400
+  },
+  {
+    "call_id": "call_9",
+    "client_id": "bank_01",
+    "start_time": "2026-01-10T14:09:00",
+    "duration_sec": 87,
+    "status": "completed",
+    "resolution": "none",
+    "llm_latency_ms": 415
+  },
+  {
+    "call_id": "call_10",
+    "client_id": "bank_01",
+    "start_time": "2026-01-10T14:10:00",
+    "duration_sec": 90,
+    "status": "dropped",
+    "resolution": "none",
+    "llm_latency_ms": 280
+  },
+  {
+    "call_id": "call_11",
+    "client_id": "bank_01",
+    "start_time": "2026-01-10T14:11:00",
+    "duration_sec": 93,
+    "status": "completed",
+    "resolution": "none",
+    "llm_latency_ms": 295
+  },
+  {
+    "call_id": "call_12",
+    "client_id": "bank_01",
+    "start_time": "2026-01-10T14:12:00",
+    "duration_sec": 96,
+    "status": "completed",
+    "resolution": "promise_to_pay",
+    "llm_latency_ms": 310
+  },
+  {
+    "call_id": "call_13",
+    "client_id": "bank_01",
+    "start_time": "2026-01-10T14:13:00",
+    "duration_sec": 99,
+    "status": "completed",
+    "resolution": "none",
+    "llm_latency_ms": 325
+  },
+  {
+    "call_id": "call_14",
+    "client_id": "bank_01",
+    "start_time": "2026-01-10T14:14:00",
+    "duration_sec": 102,
+    "status": "completed",
+    "resolution": "paid",
+    "llm_latency_ms": 340
+  },
+  {
+    "call_id": "call_15",
+    "client_id": "bank_01",
+    "start_time": "2026-01-10T14:15:00",
+    "duration_sec": 105,
+    "status": "dropped",
+    "resolution": "none",
+    "llm_latency_ms": 355
+  },
+  {
+    "call_id": "call_16",
+    "client_id": "bank_01",
+    "start_time": "2026-01-10T14:16:00",
+    "duration_sec": 108,
+    "status": "completed",
+    "resolution": "promise_to_pay",
+    "llm_latency_ms": 370
+  },
+  {
+    "call_id": "call_17",
+    "client_id": "bank_01",
+    "start_time": "2026-01-10T14:17:00",
+    "duration_sec": 111,
+    "status": "completed",
+    "resolution": "none",
+    "llm_latency_ms": 385
+  },
+  {
+    "call_id": "call_18",
+    "client_id": "bank_01",
+    "start_time": "2026-01-10T14:18:00",
+    "duration_sec": 114,
+    "status": "completed",
+    "resolution": "none",
+    "llm_latency_ms": 400
+  },
+  {
+    "call_id": "call_19",
+    "client_id": "bank_01",
+    "start_time": "2026-01-10T14:19:00",
+    "duration_sec": 117,
+    "status": "completed",
+    "resolution": "none",
+    "llm_latency_ms": 415
+  },
+  {
+    "call_id": "call_20",
+    "client_id": "bank_01",
+    "start_time": "2026-01-10T14:20:00",
+    "duration_sec": 120,
+    "status": "dropped",
+    "resolution": "promise_to_pay",
+    "llm_latency_ms": 280
+  },
+  {
+    "call_id": "call_21",
+    "client_id": "bank_01",
+    "start_time": "2026-01-10T14:21:00",
+    "duration_sec": 123,
+    "status": "completed",
+    "resolution": "paid",
+    "llm_latency_ms": 295
+  },
+  {
+    "call_id": "call_22",
+    "client_id": "bank_01",
+    "start_time": "2026-01-10T14:22:00",
+    "duration_sec": 126,
+    "status": "completed",
+    "resolution": "none",
+    "llm_latency_ms": 310
+  },
+  {
+    "call_id": "call_23",
+    "client_id": "bank_01",
+    "start_time": "2026-01-10T14:23:00",
+    "duration_sec": 129,
+    "status": "completed",
+    "resolution": "none",
+    "llm_latency_ms": 325
+  },
+  {
+    "call_id": "call_24",
+    "client_id": "bank_01",
+    "start_time": "2026-01-10T14:24:00",
+    "duration_sec": 132,
+    "status": "completed",
+    "resolution": "promise_to_pay",
+    "llm_latency_ms": 340
+  },
+  {
+    "call_id": "call_25",
+    "client_id": "bank_01",
+    "start_time": "2026-01-10T14:25:00",
+    "duration_sec": 135,
+    "status": "dropped",
+    "resolution": "none",
+    "llm_latency_ms": 355
+  },
+  {
+    "call_id": "call_26",
+    "client_id": "bank_01",
+    "start_time": "2026-01-10T14:26:00",
+    "duration_sec": 138,
+    "status": "completed",
+    "resolution": "none",
+    "llm_latency_ms": 370
+  },
+  {
+    "call_id": "call_27",
+    "client_id": "bank_01",
+    "start_time": "2026-01-10T14:27:00",
+    "duration_sec": 141,
+    "status": "completed",
+    "resolution": "none",
+    "llm_latency_ms": 385
+  },
+  {
+    "call_id": "call_28",
+    "client_id": "bank_01",
+    "start_time": "2026-01-10T14:28:00",
+    "duration_sec": 144,
+    "status": "completed",
+    "resolution": "promise_to_pay",
+    "llm_latency_ms": 400
+  },
+  {
+    "call_id": "call_29",
+    "client_id": "bank_01",
+    "start_time": "2026-01-10T14:29:00",
+    "duration_sec": 147,
+    "status": "completed",
+    "resolution": "none",
+    "llm_latency_ms": 415
+  },
+  {
+    "call_id": "call_30",
+    "client_id": "bank_02",
+    "start_time": "2026-01-10T14:30:00",
+    "duration_sec": 150,
+    "status": "dropped",
+    "resolution": "none",
+    "llm_latency_ms": 280
+  },
+  {
+    "call_id": "call_31",
+    "client_id": "bank_02",
+    "start_time": "2026-01-10T14:31:00",
+    "duration_sec": 153,
+    "status": "completed",
+    "resolution": "none",
+    "llm_latency_ms": 295
+  },
+  {
+    "call_id": "call_32",
+    "client_id": "bank_02",
+    "start_time": "2026-01-10T14:32:00",
+    "duration_sec": 156,
+    "status": "completed",
+    "resolution": "promise_to_pay",
+    "llm_latency_ms": 310
+  },
+  {
+    "call_id": "call_33",
+    "client_id": "bank_02",
+    "start_time": "2026-01-10T14:33:00",
+    "duration_sec": 159,
+    "status": "completed",
+    "resolution": "none",
+    "llm_latency_ms": 325
+  },
+  {
+    "call_id": "call_34",
+    "client_id": "bank_02",
+    "start_time": "2026-01-10T14:34:00",
+    "duration_sec": 162,
+    "status": "completed",
+    "resolution": "none",
+    "llm_latency_ms": 340
+  },
+  {
+    "call_id": "call_35",
+    "client_id": "bank_02",
+    "start_time": "2026-01-10T14:35:00",
+    "duration_sec": 165,
+    "status": "dropped",
+    "resolution": "paid",
+    "llm_latency_ms": 355
+  },
+  {
+    "call_id": "call_36",
+    "client_id": "bank_02",
+    "start_time": "2026-01-10T14:36:00",
+    "duration_sec": 168,
+    "status": "completed",
+    "resolution": "promise_to_pay",
+    "llm_latency_ms": 370
+  },
+  {
+    "call_id": "call_37",
+    "client_id": "bank_02",
+    "start_time": "2026-01-10T14:37:00",
+    "duration_sec": 171,
+    "status": "completed",
+    "resolution": "none",
+    "llm_latency_ms": 385
+  },
+  {
+    "call_id": "call_38",
+    "client_id": "bank_02",
+    "start_time": "2026-01-10T14:38:00",
+    "duration_sec": 174,
+    "status": "completed",
+    "resolution": "none",
+    "llm_latency_ms": 400
+  },
+  {
+    "call_id": "call_39",
+    "client_id": "bank_02",
+    "start_time": "2026-01-10T14:39:00",
+    "duration_sec": 177,
+    "status": "completed",
+    "resolution": "none",
+    "llm_latency_ms": 415
+  },
+  {
+    "call_id": "call_40",
+    "client_id": "bank_02",
+    "start_time": "2026-01-10T14:40:00",
+    "duration_sec": 180,
+    "status": "dropped",
+    "resolution": "promise_to_pay",
+    "llm_latency_ms": 280
+  },
+  {
+    "call_id": "call_41",
+    "client_id": "bank_02",
+    "start_time": "2026-01-10T14:41:00",
+    "duration_sec": 183,
+    "status": "completed",
+    "resolution": "none",
+    "llm_latency_ms": 295
+  },
+  {
+    "call_id": "call_42",
+    "client_id": "bank_02",
+    "start_time": "2026-01-10T14:42:00",
+    "duration_sec": 186,
+    "status": "completed",
+    "resolution": "paid",
+    "llm_latency_ms": 310
+  },
+  {
+    "call_id": "call_43",
+    "client_id": "bank_02",
+    "start_time": "2026-01-10T14:43:00",
+    "duration_sec": 189,
+    "status": "completed",
+    "resolution": "none",
+    "llm_latency_ms": 325
+  },
+  {
+    "call_id": "call_44",
+    "client_id": "bank_02",
+    "start_time": "2026-01-10T14:44:00",
+    "duration_sec": 192,
+    "status": "completed",
+    "resolution": "promise_to_pay",
+    "llm_latency_ms": 340
+  },
+  {
+    "call_id": "call_45",
+    "client_id": "bank_02",
+    "start_time": "2026-01-10T14:45:00",
+    "duration_sec": 195,
+    "status": "dropped",
+    "resolution": "none",
+    "llm_latency_ms": 355
+  },
+  {
+    "call_id": "call_46",
+    "client_id": "bank_02",
+    "start_time": "2026-01-10T14:46:00",
+    "duration_sec": 198,
+    "status": "completed",
+    "resolution": "none",
+    "llm_latency_ms": 370
+  },
+  {
+    "call_id": "call_47",
+    "client_id": "bank_02",
+    "start_time": "2026-01-10T14:47:00",
+    "duration_sec": 201,
+    "status": "completed",
+    "resolution": "none",
+    "llm_latency_ms": 385
+  },
+  {
+    "call_id": "call_48",
+    "client_id": "bank_02",
+    "start_time": "2026-01-10T14:48:00",
+    "duration_sec": 204,
+    "status": "completed",
+    "resolution": "promise_to_pay",
+    "llm_latency_ms": 400
+  },
+  {
+    "call_id": "call_49",
+    "client_id": "bank_02",
+    "start_time": "2026-01-10T14:49:00",
+    "duration_sec": 207,
+    "status": "completed",
+    "resolution": "paid",
+    "llm_latency_ms": 415
+  }
+]
