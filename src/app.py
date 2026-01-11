@@ -62,85 +62,9 @@ def define_events(df):
 
 
 def apply_filters(df):
-    """Apply sidebar filters to the dataframe."""
-    df_filtered = df.copy()
-    
-    # Date range filter
-    if 'started_at' in df_filtered.columns:
-        valid_dates = df_filtered['started_at'].notna()
-        if valid_dates.sum() > 0:
-            min_date = df_filtered.loc[valid_dates, 'started_at'].min().date()
-            max_date = df_filtered.loc[valid_dates, 'started_at'].max().date()
-            
-            date_range = st.sidebar.date_input(
-                "Date Range (started_at)",
-                value=(min_date, max_date),
-                min_value=min_date,
-                max_value=max_date
-            )
-            
-            include_nat = st.sidebar.checkbox("Include rows with missing started_at", value=True)
-            
-            if len(date_range) == 2:
-                start_date, end_date = date_range
-                end_datetime = pd.Timestamp(end_date) + pd.Timedelta(days=1)
-                
-                if include_nat:
-                    mask = (df_filtered['started_at'].isna()) | (
-                        (df_filtered['started_at'] >= pd.Timestamp(start_date)) &
-                        (df_filtered['started_at'] < end_datetime)
-                    )
-                else:
-                    mask = (
-                        (df_filtered['started_at'] >= pd.Timestamp(start_date)) &
-                        (df_filtered['started_at'] < end_datetime)
-                    )
-                df_filtered = df_filtered[mask].copy()
-    
-    # State multiselect
-    if 'state' in df_filtered.columns:
-        unique_states = sorted(df_filtered['state'].dropna().unique().tolist())
-        selected_states = st.sidebar.multiselect("State", options=unique_states, default=unique_states)
-        if selected_states:
-            df_filtered = df_filtered[df_filtered['state'].isin(selected_states)].copy()
-    
-    # Category multiselect
-    if 'category' in df_filtered.columns:
-        unique_categories = sorted(df_filtered['category'].dropna().unique().tolist())
-        selected_categories = st.sidebar.multiselect("Category", options=unique_categories, default=unique_categories)
-        if selected_categories:
-            df_filtered = df_filtered[df_filtered['category'].isin(selected_categories)].copy()
-    
-    # End reason multiselect
-    if 'end_reason' in df_filtered.columns:
-        unique_end_reasons = sorted(df_filtered['end_reason'].dropna().unique().tolist())
-        selected_end_reasons = st.sidebar.multiselect("End Reason", options=unique_end_reasons, default=unique_end_reasons)
-        if selected_end_reasons:
-            df_filtered = df_filtered[df_filtered['end_reason'].isin(selected_end_reasons)].copy()
-    
-    # Status multiselect
-    if 'status' in df_filtered.columns:
-        unique_statuses = sorted(df_filtered['status'].dropna().unique().tolist())
-        selected_statuses = st.sidebar.multiselect("Status", options=unique_statuses, default=unique_statuses)
-        if selected_statuses:
-            df_filtered = df_filtered[df_filtered['status'].isin(selected_statuses)].copy()
-    
-    # Attempt range slider
-    if 'attempt' in df_filtered.columns:
-        min_attempt = int(df_filtered['attempt'].min())
-        max_attempt = int(df_filtered['attempt'].max())
-        attempt_range = st.sidebar.slider(
-            "Attempt Range",
-            min_value=min_attempt,
-            max_value=max_attempt,
-            value=(min_attempt, max_attempt)
-        )
-        df_filtered = df_filtered[
-            (df_filtered['attempt'] >= attempt_range[0]) &
-            (df_filtered['attempt'] <= attempt_range[1])
-        ].copy()
-    
-    return df_filtered
+    """Apply filters to the dataframe (no sidebar - filters applied at bottom)."""
+    # For now, return unfiltered data - filters will be applied at bottom of page
+    return df.copy()
 
 
 def compute_call_level_metrics(df):
@@ -391,63 +315,17 @@ except Exception as e:
     st.error(f"Error loading data: {e}")
     st.stop()
 
-# Sidebar filters
-st.sidebar.header("🔍 Filters")
-st.sidebar.caption("Use filters below to narrow down the data. All filters are applied together (AND logic).")
+# No sidebar - use all data
 df_filtered = apply_filters(df)
 
-# Main content
-st.header("Data Overview")
-st.write(f"**File:** {DATA_FILE.name}")
-st.write(f"**Total Rows Loaded:** {len(df):,}")
-
-# Filter information
-with st.expander("ℹ️ Filter Information & Data Quality", expanded=True):
-    st.write(f"**Total Rows Loaded:** {len(df):,}")
-    st.write(f"**Rows After Filters:** {len(df_filtered):,}")
-    excluded = len(df) - len(df_filtered)
-    if excluded > 0:
-        st.write(f"**Rows Excluded by Filters:** {excluded:,}")
-    
-    st.write("\n**How Filters Work:**")
-    st.write("- All filters in the sidebar are applied together (AND logic)")
-    st.write("- Date Range: Filters by `started_at` timestamp")
-    st.write("- State/Category/End Reason/Status: Multiselect - choose which values to include")
-    st.write("- Attempt Range: Slider to filter by attempt number")
-    
-    st.write("\n**Data Quality Notes:**")
-    if 'started_at' in df.columns:
-        valid_dates = df['started_at'].notna().sum()
-        missing_dates = df['started_at'].isna().sum()
-        st.write(f"- **Rows with `started_at` dates:** {valid_dates:,} ({valid_dates/len(df)*100:.1f}%)")
-        st.write(f"- **Rows with missing `started_at`:** {missing_dates:,} ({missing_dates/len(df)*100:.1f}%)")
-        st.write(f"- **Note:** By default, rows with missing `started_at` are INCLUDED. Uncheck 'Include rows with missing started_at' in the sidebar to exclude them.")
-    
-    if 'duration' in df.columns:
-        missing_duration = df['duration'].isna().sum()
-        if missing_duration > 0:
-            st.write(f"- **Rows with missing `duration`:** {missing_duration:,} (filled with 0)")
-    
-    if 'category' in df.columns:
-        missing_category = df['category'].isna().sum()
-        if missing_category > 0:
-            st.write(f"- **Rows with missing `category`:** {missing_category:,}")
-
-# Show first 10 rows
-with st.expander("View First 10 Rows"):
-    st.dataframe(df_filtered.head(10))
-
-# Check if filtered data is empty
+# Check if data is empty
 if len(df_filtered) == 0:
-    st.warning("No data available after applying filters. Please adjust your filter settings.")
+    st.warning("No data available.")
     st.stop()
 
 # Compute metrics
 call_metrics = compute_call_level_metrics(df_filtered)
 loan_metrics_df, loan_stats = compute_loan_level_metrics(df_filtered)
-
-# Metrics Section with detailed breakdowns
-st.header("📊 Key Metrics")
 
 # Metric Definitions Section
 with st.expander("📖 Metric Definitions & Calculations", expanded=False):
@@ -486,30 +364,30 @@ with st.expander("📖 Metric Definitions & Calculations", expanded=False):
     
     **What it signifies**: These calls represent high-intent customers who need human assistance. This is a GOOD outcome, not a failure.
     
-    ### **Waste Rate**
-    **Definition**: Percentage of calls that resulted in no value and wasted time/resources.
+    ### **Non-Value Rate**
+    **Definition**: Percentage of calls that resulted in no value outcome.
     
     **Calculation**:
     ```
-    Waste Rate = (Number of waste events) / Total calls × 100%
+    Non-Value Rate = (Number of non-value events) / Total calls × 100%
     ```
     
-    **Waste Events Include**:
+    **Non-Value Events Include**:
     - Calls ending with `silence-timed-out` (no response from customer)
     - Calls that are NOT value events (no promise, no forward)
     
-    **What it signifies**: Lower waste rates indicate more efficient use of call resources and better customer engagement.
+    **What it signifies**: Lower non-value rates indicate more efficient use of call resources and better customer engagement.
     
     ### **Cost Saved**
-    **Definition**: Percentage of call time that was NOT wasted on unproductive calls.
+    **Definition**: Percentage of call time that was spent on productive calls (value events).
     
     **Calculation**:
     ```
-    Cost Saved % = (Total minutes - Waste minutes) / Total minutes × 100%
-    Cost Saved (minutes) = Total minutes - Waste minutes
+    Cost Saved % = (Total minutes - Non-Value minutes) / Total minutes × 100%
+    Cost Saved (minutes) = Total minutes - Non-Value minutes
     ```
     
-    **What it signifies**: Higher cost saved means more time spent on productive calls (value events) rather than wasted calls.
+    **What it signifies**: Higher cost saved means more time spent on productive calls (value events) rather than non-value calls.
     
     ### **Attempts-to-Value**
     **Definition**: Number of call attempts required before achieving a value event (at the loan level).
@@ -597,36 +475,36 @@ with col2:
             st.plotly_chart(fig, use_container_width=True)
 
 with col3:
-    st.metric("Waste Rate", f"{call_metrics['waste_rate']:.2f}%")
+    st.metric("Non-Value Rate", f"{call_metrics['waste_rate']:.2f}%")
     with st.expander("📖 Details & Explanation"):
         st.warning("""
-        **Definition**: Percentage of calls that resulted in no value and wasted time/resources.
+        **Definition**: Percentage of calls that resulted in no value outcome.
         
-        **Calculation**: Waste Rate = (Number of waste events) / Total calls × 100%
+        **Calculation**: Non-Value Rate = (Number of non-value events) / Total calls × 100%
         
-        **Waste Events Include**:
+        **Non-Value Events Include**:
         - Calls ending with `silence-timed-out` (no customer response)
         - Calls that are NOT value events (no promise made, no forward to agent)
         
-        **Significance**: Lower waste rates indicate more efficient use of call resources and better customer engagement.
+        **Significance**: Lower non-value rates indicate more efficient use of call resources and better customer engagement.
         """)
-        waste_calls = df_filtered[df_filtered['waste_event'] == True]
+        non_value_calls = df_filtered[df_filtered['waste_event'] == True]
         total_calls = len(df_filtered)
-        st.write(f"**Waste Calls:** {len(waste_calls):,} / {total_calls:,}")
-        if len(waste_calls) > 0:
-            st.write(f"\n**Total Waste Time:** {call_metrics['waste_minutes']:.1f} minutes")
-            st.write(f"**Average Waste Call Duration:** {waste_calls['duration'].mean() / 60:.2f} minutes")
-            st.write("\n**Top Waste Reasons:**")
-            waste_reasons = waste_calls['end_reason'].value_counts().head(5)
-            for reason, count in waste_reasons.items():
-                pct = (count / len(waste_calls) * 100)
+        st.write(f"**Non-Value Calls:** {len(non_value_calls):,} / {total_calls:,}")
+        if len(non_value_calls) > 0:
+            st.write(f"\n**Total Non-Value Time:** {call_metrics['waste_minutes']:.1f} minutes")
+            st.write(f"**Average Non-Value Call Duration:** {non_value_calls['duration'].mean() / 60:.2f} minutes")
+            st.write("\n**Top Non-Value Reasons:**")
+            non_value_reasons = non_value_calls['end_reason'].value_counts().head(5)
+            for reason, count in non_value_reasons.items():
+                pct = (count / len(non_value_calls) * 100)
                 st.write(f"- {reason}: {count} ({pct:.1f}%)")
-            waste_reasons_chart = waste_calls['end_reason'].value_counts().head(10)
+            non_value_reasons_chart = non_value_calls['end_reason'].value_counts().head(10)
             fig = px.bar(
-                x=waste_reasons_chart.values,
-                y=waste_reasons_chart.index,
+                x=non_value_reasons_chart.values,
+                y=non_value_reasons_chart.index,
                 orientation='h',
-                title='Top Waste Reasons',
+                title='Top Non-Value Reasons',
                 labels={'x': 'Count', 'y': 'End Reason'},
                 height=300
             )
@@ -639,25 +517,25 @@ with col4:
     st.metric("Cost Saved", f"{call_metrics['cost_saved_pct']:.2f}%")
     with st.expander("📖 Details & Explanation"):
         st.success("""
-        **Definition**: Percentage of call time that was NOT wasted on unproductive calls.
+        **Definition**: Percentage of call time that was spent on productive calls (value events).
         
         **Calculation**: 
-        - Cost Saved % = (Total minutes - Waste minutes) / Total minutes × 100%
-        - Cost Saved (minutes) = Total minutes - Waste minutes
+        - Cost Saved % = (Total minutes - Non-Value minutes) / Total minutes × 100%
+        - Cost Saved (minutes) = Total minutes - Non-Value minutes
         
-        **What it means**: This represents the time spent on productive calls (value events) vs. wasted calls.
+        **What it means**: This represents the time spent on productive calls (value events) vs. non-value calls.
         
         **Significance**: Higher cost saved means more time invested in calls that result in promises or qualified handoffs, leading to better ROI.
         """)
         st.write(f"**Cost Saved (Minutes):** {call_metrics['cost_saved_minutes']:.1f}")
         st.write(f"**Total Call Time:** {call_metrics['total_minutes']:.1f} minutes")
-        st.write(f"**Waste Time:** {call_metrics['waste_minutes']:.1f} minutes")
+        st.write(f"**Non-Value Time:** {call_metrics['waste_minutes']:.1f} minutes")
         st.write(f"**Productive Time:** {call_metrics['cost_saved_minutes']:.1f} minutes")
         if call_metrics['total_minutes'] > 0:
             productive_pct = (call_metrics['cost_saved_minutes'] / call_metrics['total_minutes'] * 100)
             st.write(f"\n**Productive Time %:** {productive_pct:.1f}%")
             time_data = {
-                'Category': ['Productive Time', 'Waste Time'],
+                'Category': ['Productive Time', 'Non-Value Time'],
                 'Minutes': [call_metrics['cost_saved_minutes'], call_metrics['waste_minutes']]
             }
             time_df = pd.DataFrame(time_data)
@@ -665,7 +543,7 @@ with col4:
                 time_df,
                 values='Minutes',
                 names='Category',
-                title='Time Distribution: Productive vs Waste',
+                title='Time Distribution: Productive vs Non-Value',
                 height=300
             )
             st.plotly_chart(fig, use_container_width=True)
@@ -756,3 +634,31 @@ st.download_button(
     file_name=f"filtered_data_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv",
     mime="text/csv"
 )
+
+# Filter Information at the bottom
+st.divider()
+st.header("ℹ️ Data Information & Quality")
+
+with st.expander("Data Overview & Quality Notes", expanded=False):
+    st.write(f"**File:** {DATA_FILE.name}")
+    st.write(f"**Total Rows Loaded:** {len(df):,}")
+    st.write(f"**Rows After Filters:** {len(df_filtered):,}")
+    
+    st.write("\n**Data Quality Notes:**")
+    if 'started_at' in df.columns:
+        valid_dates = df['started_at'].notna().sum()
+        missing_dates = df['started_at'].isna().sum()
+        st.write(f"- **Rows with `started_at` dates:** {valid_dates:,} ({valid_dates/len(df)*100:.1f}%)")
+        st.write(f"- **Rows with missing `started_at`:** {missing_dates:,} ({missing_dates/len(df)*100:.1f}%)")
+    
+    if 'duration' in df.columns:
+        missing_duration = df['duration'].isna().sum()
+        if missing_duration > 0:
+            st.write(f"- **Rows with missing `duration`:** {missing_duration:,} (filled with 0)")
+    
+    if 'category' in df.columns:
+        missing_category = df['category'].isna().sum()
+        if missing_category > 0:
+            st.write(f"- **Rows with missing `category`:** {missing_category:,}")
+    
+    st.write("\n**Note:** Currently showing all data. No filters are applied.")
